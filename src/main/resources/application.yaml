@@ -1,3 +1,19 @@
 spring:
   application:
-    name: telegram-update-microservice
+    name: telegram-update-gateway
+
+
+telegram:
+  api-url: https://api.telegram.org
+  bot-token: ${TELEGRAM_BOT_TOKEN}
+  webhook-secret: ${TELEGRAM_WEBHOOK_SECRET}
+
+tensai-cms:
+  api:
+    url : ${CMS_BASE_URL}
+    events-endpoint: /telegram/events
+
+internal:
+  api:
+    header: "X-Internal-Secret"
+    secret: ${CMS_API_KEY}
