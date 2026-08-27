@@ -34,6 +34,8 @@ public record TelegramMessage(
 
         TelegramFile audio,
 
+        TelegramFile voice,
+
         TelegramFile document,
 
         List<TelegramFile> photo,
