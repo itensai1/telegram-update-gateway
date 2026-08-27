@@ -47,6 +47,7 @@ public class EventMapper {
                 .caption(update.caption())
                 .video(update.video())
                 .audio(update.audio())
+                .voice(update.voice())
                 .document(update.document())
                 .photo(update.photo())
                 .entities(update.entities())
