@@ -2,6 +2,7 @@ package com.tensai.telegram.dto.webhook;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.tensai.telegram.dto.event.MediaType;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public record TelegramFile(
@@ -16,6 +17,8 @@ public record TelegramFile(
         String mimeType,
 
         @JsonProperty("file_size")
-        Long fileSize
+        Long fileSize,
+
+        MediaType type
 
 ) {}

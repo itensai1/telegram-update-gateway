@@ -42,6 +42,7 @@ public record TelegramMessage(
 
         List<MessageEntity> entities,
 
+        @JsonProperty("reply_to_message")
         TelegramMessage replyToMessage
 
 ) {
