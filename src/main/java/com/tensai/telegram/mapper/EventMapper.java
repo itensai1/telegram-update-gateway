@@ -40,7 +40,7 @@ public class EventMapper {
     public MessageEvent toMessageEvent(TelegramMessage  update) {
 
         if(update == null) return null;
-//        if (update.messageId().equals(update.messageThreadId())) return null;
+        if (update.messageId().equals(update.messageThreadId())) return null;
         String text = update.text() != null ? update.text() :
                 update.caption() != null ? update.caption() : null;
 
