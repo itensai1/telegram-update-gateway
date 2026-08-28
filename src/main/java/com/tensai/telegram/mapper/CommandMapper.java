@@ -42,6 +42,7 @@ public class CommandMapper {
     }
 
     private TelegramInlineKeyboardApi keyboardFactory(Keyboard keyboard) {
+        if (keyboard == null) return null;
         return TelegramInlineKeyboardApi.builder()
                 .inlineKeyboard(
                         keyboard.buttons().stream()
@@ -52,6 +53,7 @@ public class CommandMapper {
     }
 
     private TelegramInlineKeyboardButtonApi buttonFactory(Button button) {
+        if (button == null) return null;
         return switch (button.type()) {
             case COPY -> TelegramInlineKeyboardButtonApi.builder()
                     .text(button.text()).copyText(
