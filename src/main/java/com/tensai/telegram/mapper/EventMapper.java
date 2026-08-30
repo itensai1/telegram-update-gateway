@@ -19,7 +19,13 @@ public class EventMapper {
                 .firstName(update.from().firstName())
                 .lastName(update.from().lastName())
                 .username(update.from().username())
+                .isAdmin(isAdmin(update))
                 .build();
+    }
+
+    private boolean isAdmin(TelegramChatMemberUpdated update) {
+        return "administrator".equals(update.newChatMember().status())
+                && update.newChatMember().canDeleteMessages();
     }
 
     public TopicEvent toCreateTopicEvent(TelegramMessage  update) {

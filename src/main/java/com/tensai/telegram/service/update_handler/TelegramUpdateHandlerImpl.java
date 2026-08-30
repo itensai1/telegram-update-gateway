@@ -1,5 +1,6 @@
 package com.tensai.telegram.service.update_handler;
 
+import com.tensai.telegram.dto.event.RegisterUserEvent;
 import com.tensai.telegram.dto.telegram_api.TelegramSendMessageApiRequest;
 import com.tensai.telegram.dto.event.CmsEventRequest;
 import com.tensai.telegram.dto.event.EventType;
@@ -22,14 +23,15 @@ public class TelegramUpdateHandlerImpl implements TelegramUpdateHandler {
     @Override
     public void handleChatMemberUpdate(TelegramChatMemberUpdated update) {
 
-        if(!isAdmin(update)) {
+        RegisterUserEvent event = eventMapper.toRegisterUserEvent(update);
+
+        if(event.isAdmin()) {
             telegramClient.sendMessage(
                     TelegramSendMessageApiRequest.builder()
                             .chatId(update.chat().id())
                             .text("Bot needs to be an admin with the right to delete messages to manage blogs properly.")
                             .build()
             );
-            return;
         }
 
         if (update.chat().isForum() == null || !update.chat().isForum()) {
@@ -44,7 +46,7 @@ public class TelegramUpdateHandlerImpl implements TelegramUpdateHandler {
         cmsClient.forwardEventToCMS(
                 CmsEventRequest.builder()
                         .eventType(EventType.REGISTER_USER)
-                        .registerUser(eventMapper.toRegisterUserEvent(update))
+                        .registerUser(event)
                         .build()
         );
 
@@ -110,10 +112,7 @@ public class TelegramUpdateHandlerImpl implements TelegramUpdateHandler {
         );
     }
 
-    private boolean isAdmin(TelegramChatMemberUpdated update) {
-        return "administrator".equals(update.newChatMember().status())
-                && update.newChatMember().canDeleteMessages();
-    }
+
 
 
 }
