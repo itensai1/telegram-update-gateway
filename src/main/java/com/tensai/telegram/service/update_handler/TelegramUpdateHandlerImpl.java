@@ -25,7 +25,7 @@ public class TelegramUpdateHandlerImpl implements TelegramUpdateHandler {
 
         RegisterUserEvent event = eventMapper.toRegisterUserEvent(update);
 
-        if(event.isAdmin()) {
+        if(!event.isAdmin()) {
             telegramClient.sendMessage(
                     TelegramSendMessageApiRequest.builder()
                             .chatId(update.chat().id())
